@@ -13,6 +13,10 @@ repositories {
 	mavenCentral()
 }
 
+bootJar {
+	classifier = 'boot'
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
@@ -20,4 +24,10 @@ dependencies {
 	compile 'io.jsonwebtoken:jjwt:0.9.1'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testCompile('org.springframework.security:spring-security-test')
+	
+	// Add missing dependencies for JDK 9+
+	if (JavaVersion.current().ordinal() >= JavaVersion.VERSION_1_9.ordinal()) {
+	    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
+	    testImplementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
+	}
 }
